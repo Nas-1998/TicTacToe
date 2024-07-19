@@ -89,9 +89,21 @@ class CPU extends Player {
         }
     }
 
-    choice() {
-        let randomIndex = Math.floor(Math.random() * choices.length);
-        return choices[randomIndex];
+    choice() 
+    {
+        
+        let posRow = Math.floor(Math.random() * 3)
+        let posCol = Math.floor(Math.random() * 3)
+        let done = false
+        while(done == false)
+        if((posRow >= 0 && posCol < 3) && (posCol >= 0 && posCol < 3)) 
+        {
+            if(gameBoard[posRow][posCol] !== ('X' || 'Y'))
+            {
+                gameBoard[posRow][posCol] = this.side
+                done = true
+            }
+        } 
     }
 }
 
