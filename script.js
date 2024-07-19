@@ -13,8 +13,21 @@ class Player {
         this.side = null
     }
 
-    askNameSide() {
+    askName() 
+    {
         this.name = prompt("What is your name?");
+    }
+}
+
+class HumanPlayer extends Player 
+{
+    constructor(name) {
+        super(name);
+        this.side = null
+    }
+
+    pickSide(sides) 
+    {
         let pass = false
         let sideChoice 
         while(pass == false)
@@ -23,6 +36,7 @@ class Player {
             if(index == 1 || index == 2)
             {
                 this.side = sides[parseInt(index)]
+                sides[parseInt(index)] = " . "
                 return this.side
             }
             
@@ -30,15 +44,7 @@ class Player {
             {
                 console.log("Try again")
             }
-        }
-
-    }
-}
-
-class HumanPlayer extends Player 
-{
-    constructor(name, side) {
-        super(name, side);
+        }    
     }
 
     choice() 
@@ -67,8 +73,20 @@ class HumanPlayer extends Player
 }
 
 class CPU extends Player {
-    constructor(name = 'CPU', side) {
-        super(name, side);
+    constructor(name = 'CPU') {
+        super(name);
+        this.side = null
+    }
+    cpuSide(sides)
+    {
+        if(sides[0] !== 'X' || sides[0] !== 'Y')
+        {
+            this.side = sides[1]
+        }
+        else
+        {
+            this.side = sides[0]
+        }
     }
 
     choice() {
