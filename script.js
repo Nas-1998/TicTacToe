@@ -113,31 +113,63 @@ class Game {
         this.cpu = cpu;
         this.winner = null;
     }
-
-    logic() {
+    
+    logic() 
+    {
+        console.log(gameBoard)
         const humanChoice = this.player1.choice();
         const cpuChoice = this.cpu.choice();
-
-        if (humanChoice === cpuChoice) {
-            this.winner = "It's a tie";
-            return this.winner;
+        for(let row = 0; row < 3; row++)
+        {
+            if(gameBoard[row][0] !== ' . ' && gameBoard[row][0] == gameBoard[row][1] && gameBoard[row][0] == gameBoard[row][2])
+            {
+                if(humanChoice == gameBoard[row][0])
+                {
+                    this.winner = player1
+                }
+                else
+                {
+                    this.winner = cpu
+                }
+            }
         }
-
-        if (
-            (humanChoice === "Rock" && cpuChoice === "Scissors") ||
-            (humanChoice === "Scissors" && cpuChoice === "Paper") ||
-            (humanChoice === "Paper" && cpuChoice === "Rock")
-        ) {
-            this.player1.wins++;
-            this.cpu.losses++;
-            this.winner = `${this.player1.name} has won`;
-            return this.winner;
-        } else {
-            this.player1.losses++;
-            this.cpu.wins++;
-            this.winner = `${this.cpu.name} has won`;
-            return this.winner;
+        for(let col = 0; row < 3; col++)
+            {
+                if(gameBoard[0][col] !== ' . ' && gameBoard[0][col] == gameBoard[1][col] && gameBoard[0][col] == gameBoard[2][col])
+                {
+                    if(humanChoice == gameBoard[0][col])
+                    {
+                        this.winner = player1
+                    }
+                    else
+                    {
+                        this.winner = cpu
+                    }
+                }
+            }
+        if(gameBoard[0][0] !== ' . ' && gameBoard[0][0] == gameBoard[1][1] && gameBoard[1][1] && gameBoard[2][2])
+        {
+            if(humanChoice == gameBoard[0][0])
+                {
+                    this.winner = player1
+                }
+                else
+                {
+                    this.winner = cpu
+                }
         }
+        if(gameBoard[0][2] !== ' . ' && gameBoard[0][2] == gameBoard[1][1] && gameBoard[1][1] && gameBoard[2][0])
+            {
+                if(humanChoice == gameBoard[0][2])
+                    {
+                        this.winner = player1
+                    }
+                    else
+                    {
+                        this.winner = cpu
+                    }
+            }
+
     }
 }
 
