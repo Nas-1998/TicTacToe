@@ -207,3 +207,4 @@ let cpu = new CPU();
 let game = new Game(player, cpu);
 
 console.log(game.logic());
+// 
