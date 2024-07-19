@@ -15,8 +15,23 @@ class Player {
 
     askNameSide() {
         this.name = prompt("What is your name?");
-        let sideChoice
-        this.side = sides[prompt("Are you 1. X or are you 2. O")]
+        let pass = false
+        let sideChoice 
+        while(pass == false)
+        {
+            let index = prompt("Are you 1. X or are you 2. O")
+            if(index == 1 || index == 2)
+            {
+                this.side = sides[parseInt(index)]
+                return this.side
+            }
+            
+            else
+            {
+                console.log("Try again")
+            }
+        }
+
     }
 }
 
