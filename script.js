@@ -149,11 +149,13 @@ class Game {
                     if(humanChoice == gameBoard[0][col])
                     {
                         this.winner = player1
+                        console.log("Winner u")
                         return whoWon = true
                     }
                     else
                     {
                         this.winner = cpu
+                        console.log("Winner cpu")
                         return whoWon = true
                     }
                 }
@@ -164,11 +166,13 @@ class Game {
             if(humanChoice == gameBoard[0][0])
                 {
                     this.winner = player1
+                    console.log("Winner u")
                     return whoWon = true
                 }
                 else
                 {
                     this.winner = cpu
+                    console.log("Winner cpu")
                     return whoWon = true
                 }
                 
@@ -178,12 +182,15 @@ class Game {
                 if(humanChoice == gameBoard[0][2])
                     {
                         this.winner = player1
+                        console.log("Winner u")
                         return whoWon = true
                     }
                     else
                     {
                         this.winner = cpu
+                        console.log("Winner cpu")
                         return whoWon = true
+                        
                     }
                     
             }
