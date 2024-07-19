@@ -1,3 +1,4 @@
+const prompt = require('prompt-sync')();
 let sides = ['X', 'O']
 
 let gameBoard = 
@@ -108,14 +109,18 @@ class CPU extends Player {
 }
 
 class Game {
-    constructor(player1, cpu) {
+    constructor(player1, cpu) 
+    {
         this.player1 = player1;
         this.cpu = cpu;
         this.winner = null;
     }
-    
+
     logic() 
     {
+        let whoWon = false
+        while (whoWon == false)
+        {
         console.log(gameBoard)
         const humanChoice = this.player1.choice();
         const cpuChoice = this.cpu.choice();
@@ -126,12 +131,16 @@ class Game {
                 if(humanChoice == gameBoard[row][0])
                 {
                     this.winner = player1
+                    return whoWon = true
                 }
                 else
                 {
                     this.winner = cpu
+                    return whoWon = true
                 }
+                
             }
+            
         }
         for(let col = 0; row < 3; col++)
             {
@@ -140,40 +149,50 @@ class Game {
                     if(humanChoice == gameBoard[0][col])
                     {
                         this.winner = player1
+                        return whoWon = true
                     }
                     else
                     {
                         this.winner = cpu
+                        return whoWon = true
                     }
                 }
+                
             }
         if(gameBoard[0][0] !== ' . ' && gameBoard[0][0] == gameBoard[1][1] && gameBoard[1][1] && gameBoard[2][2])
         {
             if(humanChoice == gameBoard[0][0])
                 {
                     this.winner = player1
+                    return whoWon = true
                 }
                 else
                 {
                     this.winner = cpu
+                    return whoWon = true
                 }
+                
         }
         if(gameBoard[0][2] !== ' . ' && gameBoard[0][2] == gameBoard[1][1] && gameBoard[1][1] && gameBoard[2][0])
             {
                 if(humanChoice == gameBoard[0][2])
                     {
                         this.winner = player1
+                        return whoWon = true
                     }
                     else
                     {
                         this.winner = cpu
+                        return whoWon = true
                     }
+                    
             }
+        }
 
     }
 }
 
-// Example usage
+
 let player = new HumanPlayer();
 player.askName();
 let cpu = new CPU();
