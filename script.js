@@ -16,7 +16,7 @@ class Player {
 
     askName() 
     {
-        this.name = prompt("What is your name?");
+        this.name = prompt("What is your name?  ");
     }
 }
 
@@ -31,14 +31,14 @@ class HumanPlayer extends Player
     {
         let pass = false
         let sideChoice 
-        while(pass == false)
+        while(!pass)
         {
-            let index = prompt("Are you 1. X or are you 2. O")
+            let index = prompt("Are you 1. X or are you 2. O:   ")
             if(index == 1 || index == 2)
             {
-                this.side = sides[parseInt(index)]
-                sides[parseInt(index)] = " . "
-                return this.side
+                this.side = sides[parseInt(index) - 1]
+                sides.splice(parseInt(index) - 1, 1);
+                pass = true
             }
             
             else
@@ -50,13 +50,15 @@ class HumanPlayer extends Player
 
     choice() 
     {
-        let posRow = prompt("Select your row position on the 3 x 3 gameboard 0, 1, 2 ");
-        let posCol = prompt("Select your column position on the 3 x 3 gameboard 0, 1, 2");
+        let posRow = prompt("Select your row position on the 3 x 3 gameboard 0, 1, 2:   ");
+        let posCol = prompt("Select your column position on the 3 x 3 gameboard 0, 1, 2:   ");
+        posRow = parseInt(posRow);
+        posCol = parseInt(posCol);
         let done = false
-        while(done == false)
+        while(!done)
         if((posRow >= 0 && posCol < 3) && (posCol >= 0 && posCol < 3)) 
         {
-            if(gameBoard[posRow][posCol] !== ('X' || 'Y'))
+            if(gameBoard[posRow][posCol] !== this.side)
             {
                 gameBoard[posRow][posCol] = this.side
                 done = true
@@ -79,32 +81,27 @@ class CPU extends Player {
         this.side = null
     }
     cpuSide(sides)
-    {
-        if(sides[0] !== 'X' || sides[0] !== 'Y')
-        {
-            this.side = sides[1]
-        }
-        else
-        {
-            this.side = sides[0]
-        }
+    {  
+        this.side = sides[0]    
     }
 
     choice() 
     {
         
+        let done = false
+        while(!done)
+        {
         let posRow = Math.floor(Math.random() * 3)
         let posCol = Math.floor(Math.random() * 3)
-        let done = false
-        while(done == false)
         if((posRow >= 0 && posCol < 3) && (posCol >= 0 && posCol < 3)) 
         {
-            if(gameBoard[posRow][posCol] !== ('X' || 'Y'))
+            if(gameBoard[posRow][posCol] !== ('X' || 'O'))
             {
                 gameBoard[posRow][posCol] = this.side
                 done = true
             }
         } 
+    }
     }
 }
 
@@ -119,11 +116,12 @@ class Game {
     logic() 
     {
         let whoWon = false
-        while (whoWon == false)
+        while(!whoWon)
         {
         console.log(gameBoard)
         const humanChoice = this.player1.choice();
         const cpuChoice = this.cpu.choice();
+        console.log(gameBoard)
         for(let row = 0; row < 3; row++)
         {
             if(gameBoard[row][0] !== ' . ' && gameBoard[row][0] == gameBoard[row][1] && gameBoard[row][0] == gameBoard[row][2])
@@ -131,18 +129,20 @@ class Game {
                 if(humanChoice == gameBoard[row][0])
                 {
                     this.winner = player1
+                    console.log("Winner u")
                     return whoWon = true
                 }
                 else
                 {
                     this.winner = cpu
+                    console.log("Winner cpu")
                     return whoWon = true
                 }
                 
             }
             
         }
-        for(let col = 0; row < 3; col++)
+        for(let col = 0;  col < 3; col++)
             {
                 if(gameBoard[0][col] !== ' . ' && gameBoard[0][col] == gameBoard[1][col] && gameBoard[0][col] == gameBoard[2][col])
                 {
@@ -178,23 +178,24 @@ class Game {
                 
         }
         if(gameBoard[0][2] !== ' . ' && gameBoard[0][2] == gameBoard[1][1] && gameBoard[1][1] && gameBoard[2][0])
-            {
-                if(humanChoice == gameBoard[0][2])
-                    {
-                        this.winner = player1
-                        console.log("Winner u")
-                        return whoWon = true
-                    }
-                    else
-                    {
-                        this.winner = cpu
-                        console.log("Winner cpu")
-                        return whoWon = true
+        {
+            if(humanChoice == gameBoard[0][2])
+                {
+                    this.winner = player1
+                    console.log("Winner u")
+                    return whoWon = true
+                }
+                else
+                {
+                    this.winner = cpu
+                    console.log("Winner cpu")
+                    return whoWon = true
                         
-                    }
+                }
                     
-            }
         }
+        }
+        
 
     }
 }
@@ -203,8 +204,11 @@ class Game {
 let player = new HumanPlayer();
 player.askName();
 let cpu = new CPU();
+player.pickSide(sides)
+cpu.cpuSide(sides)
 
 let game = new Game(player, cpu);
 
-console.log(game.logic());
+game.logic()
+
 // 
